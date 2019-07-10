@@ -1,0 +1,129 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<string.h>
+
+typedef struct node
+{
+	char name[50];
+	char lastname[50];
+	node * next;
+}node;
+
+node * top = NULL;
+
+void push(char a[50],char b[50])
+{
+	node * temp = (node *)malloc(sizeof(node));
+	strcpy(temp->name,a);
+	strcpy(temp->lastname,b);
+	temp->next = NULL;
+	if(top!=NULL)
+	{
+		temp->next = top;
+	}
+	top = temp;	
+}
+
+node * peek()
+{
+	if(top==NULL)
+	{
+		printf("empty list");
+		return NULL;
+	}
+	else
+	{
+		return top;
+	}
+}
+
+void list(node *r)
+{
+	while(r!=NULL)
+	{
+		printf("%s %s -> ",r->name,r->lastname);
+		r=r->next;
+	}
+}
+
+int pop()
+{
+	if(top==NULL)
+	{
+		return 0;
+	}
+	else
+	{
+	node * temp = top;
+	top = top->next;
+	free(temp);
+	return 1;
+	}
+}
+
+int main()
+{
+	while(1)
+	{
+	int a,x;
+	printf("\n1)push(add student)\n2)pop(remove student)\n3)peek(last student)\n4)list\n");
+	printf("menu:");
+	scanf("%d",&a);
+	
+	node * root = NULL;
+	node * son;
+	
+	switch(a)
+	{
+		case 1:
+			char name[50],lastname[50];
+			printf("name:");
+			scanf("%s",&name);
+			printf("lastname:");
+			scanf("%s",&lastname);
+			push(name,lastname);
+			printf("\npress any key.");
+			getch();
+			system("CLS");
+			break;	
+		case 2:
+		 	x = pop();
+		 	if(x==1)
+		 	{
+			printf("last intern removed.");
+			printf("\press any key to continue.");
+			getch();
+			system("CLS");
+			break;
+			}
+			else
+			{
+				printf("empty stack.");
+				break;
+			}
+		
+		case 3:
+			son = peek();
+			printf("last intern is:%s %s",son->name,son->lastname);
+			printf("\npress any key to continue.");
+			getch();
+			system("CLS");
+			break;
+		case 4:
+			list(top);
+			printf("\npress any key to continue.");
+			getch();
+			system("CLS");
+			break;
+		default:
+			printf("wrong choice.");
+			printf("\npress any key to continue.");
+			getch();
+			system("CLS");
+			
+		
+	}
+	
+}
+}
